@@ -18,15 +18,20 @@ if(command == 'add'){
         console.log('Cannot add notes with the same title');
     }else{
         console.log('Note successfully added');
-        console.log('---');
-        console.log(`Title: ${note.title}`);
-        console.log(`Body: ${note.body}`);
+        notes.logNote(note);
     }
-
 }else if(command == 'list'){
     notes.getAll();
 }else if(command == 'read'){
-    notes.getNote(argv.title);
+    var note = notes.getNote(argv.title);
+
+    if(note == null){
+        console.log('Cannot find note');
+    }else{
+        console.log('Note read');
+       notes.logNote(note);
+    }
+
 }else if(command == 'remove'){
     var noteRemoved = notes.removeNote(argv.title);
     var message = noteRemoved ? 'Note was removed' : 'Note not found';
